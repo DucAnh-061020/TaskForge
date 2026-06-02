@@ -33,10 +33,6 @@ A robust project management application built using modern .NET technologies.
    ```sh
    dotnet ef migrations add InitialCreate --project ./TaskForge.Infrastructure.Data --startup-project ./TaskForge.Api
    ```
-   Apply migrations:
-   ```sh
-   dotnet ef database update --project ./TaskForge.Infrastructure.Data --startup-project ./TaskForge.Api
-   ```
 
 4. **Run the application using Docker Compose:**
    Ensure Docker is running and execute the following command:
@@ -45,7 +41,7 @@ A robust project management application built using modern .NET technologies.
    ```
 
 5. **Access the Swagger UI for API testing:**
-   Open a browser and navigate to `http://localhost:8080/swagger`.
+   Open a browser and navigate to `http://localhost:5000/swagger`.
 
 ## Frontend
 
@@ -54,10 +50,16 @@ A robust project management application built using modern .NET technologies.
 
 ## Testing
 
-img/swagger_api.png
-img/register_test_result.png
-img/login_test_result.png
-img/login_page.png
-img/dashboard_kaban.png
-img/dashboard_table.png
-img/task_detail.png
+./img/swagger_api.png
+
+./img/register_test_result.png
+
+./img/login_test_result.png
+
+./img/login_page.png
+
+./img/dashboard_kaban.png
+
+./img/dashboard_table.png
+
+./img/task_detail.png
