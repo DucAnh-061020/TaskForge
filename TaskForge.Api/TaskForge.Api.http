@@ -1,0 +1,6 @@
+@TaskForge.Api_HostAddress = http://localhost:5172
+
+GET {{TaskForge.Api_HostAddress}}
+Accept: application/json
+
+###

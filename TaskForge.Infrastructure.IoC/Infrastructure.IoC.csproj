@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TaskForge.Domain\Domain.csproj" />
+    <ProjectReference Include="..\TaskForge.Application\Application.csproj" />
+    <ProjectReference Include="..\TaskForge.Infrastructure.Data\Infrastructure.Data.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AssemblyName>TaskForge.Infrastructure.IoC</AssemblyName>
+    <RootNamespace>TaskForge.Infrastructure.IoC</RootNamespace>
+  </PropertyGroup>
+
+</Project>

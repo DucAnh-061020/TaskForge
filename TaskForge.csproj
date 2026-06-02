@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>995594b1-a16e-490d-9623-28d3020b22fe</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileContext>.</DockerfileContext>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="src\**" />
+    <Content Remove="src\**" />
+    <EmbeddedResource Remove="src\**" />
+    <None Remove="src\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="TaskForge.Application\src\Core\Abstractions\" />
+    <Folder Include="TaskForge.Application\src\Core\Boards\Commands\" />
+    <Folder Include="TaskForge.Application\src\Core\Boards\Queries\" />
+    <Folder Include="TaskForge.Application\src\Core\Tasks\Queries\" />
+    <Folder Include="tests\" />
+  </ItemGroup>
+
+</Project>

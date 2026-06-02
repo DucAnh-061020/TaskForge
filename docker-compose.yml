@@ -1,0 +1,49 @@
+services:   
+  postgres:
+    image: postgres:15-alpine
+    container_name: tf_postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: taskforge_admin
+      POSTGRES_PASSWORD: ChangeMeSecret2026!
+      POSTGRES_DB: TaskForgeWriteDb
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U taskforge_admin -d TaskForgeWriteDb"]
+      interval: 3s
+      timeout: 3s
+      retries: 10
+
+  mongodb:
+    image: mongo:latest
+    container_name: tf_mongodb
+    ports:
+      - "27017:27017"
+
+  api:
+    build:
+      context: .
+      dockerfile: TaskForge.Api/Dockerfile
+    container_name: tf_api
+    ports:
+      - "5000:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__PostgresConnection=Host=postgres;Port=5432;Database=TaskForgeWriteDb;Username=taskforge_admin;Password=ChangeMeSecret2026!;
+      - ConnectionStrings__MongoConnection=mongodb://mongodb:27017
+      - DatabaseSettings__MongoDatabaseName=TaskForgeReadDb
+    depends_on:
+      postgres:
+        condition: service_healthy
+      mongodb:
+        condition: service_started
+
+  frontend:
+    build:
+      context: ./taskforge-client
+      dockerfile: Dockerfile
+    container_name: tf_frontend
+    ports:
+      - "8080:80"
+    depends_on:
+      - api
