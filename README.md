@@ -50,16 +50,10 @@ A robust project management application built using modern .NET technologies.
 
 ## Testing
 
-[![Swagger](img/swagger_api.png)
-
-[![Register](img/register_test_result.png)
-
-[![Login](img/login_test_result.png)
-
-[![LoginPage](img/login_page.png)
-
-[![DashboardKaban](img/dashboard_kaban.png)
-
-[![DashBoardTable](img/dashboard_table.png)
-
-[![Task](img/task_detail.png)
+![Swagger](img/swagger_api.png)
+![Register](img/register_test_result.png)
+![Login](img/login_test_result.png)
+![LoginPage](img/login_page.png)
+![DashboardKaban](img/dashboard_kaban.png)
+![DashBoardTable](img/dashboard_table.png)
+![Task](img/task_detail.png)
