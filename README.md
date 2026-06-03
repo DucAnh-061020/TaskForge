@@ -22,19 +22,14 @@ A robust project management application built using modern .NET technologies.
    git clone https://github.com/DucAnh-061020/TaskForge.git
    cd TaskForge
    ```
-
-2. **Build the project:**
-   ```sh
-   dotnet build
-   ```
-
-3. **Create Database Migrations (MongoDB & PostgreSQL):**
+   
+2. **Create Database Migrations (MongoDB & PostgreSQL):**
    For MongoDB:
    ```sh
    dotnet ef migrations add InitialCreate --project ./TaskForge.Infrastructure.Data --startup-project ./TaskForge.Api
    ```
 
-4. **Run the application using Docker Compose:**
+3. **Run the application using Docker Compose:**
    Ensure Docker is running and execute the following command:
    ```sh
    docker-compose up --build
@@ -43,7 +38,7 @@ A robust project management application built using modern .NET technologies.
    ```sh
    sudo docker-compose up --build
    ```
-5. **Access the Swagger UI for API testing:**
+4. **Access the Swagger UI for API testing:**
    Open a browser and navigate to `http://localhost:5000/swagger`.
 
 ## Frontend
