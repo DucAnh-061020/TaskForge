@@ -39,7 +39,10 @@ A robust project management application built using modern .NET technologies.
    ```sh
    docker-compose up --build
    ```
-
+   or
+   ```sh
+   sudo docker-compose up --build
+   ```
 5. **Access the Swagger UI for API testing:**
    Open a browser and navigate to `http://localhost:5000/swagger`.
 
