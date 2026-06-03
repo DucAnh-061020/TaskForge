@@ -19,8 +19,8 @@ A robust project management application built using modern .NET technologies.
 
 1. **Clone the repository:**
    ```sh
-   git clone 
-   cd taskforge
+   git clone https://github.com/DucAnh-061020/TaskForge.git
+   cd TaskForge
    ```
 
 2. **Build the project:**
