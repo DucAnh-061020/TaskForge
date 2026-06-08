@@ -3,12 +3,13 @@ import { useNavigate } from 'react-router-dom';
 
 export const AuthPortal: React.FC = () => {
     const navigate = useNavigate();
+    const API_BASE_URL = 'http://localhost:5000/';
     // State to manage whether the sign-up panel is active
     const [isSignUp, setIsSignUp] = useState(false);
 
     // Form input state management
-    const [signInData, setSignInData] = useState({ username: '', password: '', rememberMe: false });
-    const [signUpData, setSignUpData] = useState({ username: '', password: '', terms: false });
+    const [signInData, setSignInData] = useState({ email: '', password: '', rememberMe: false });
+    const [signUpData, setSignUpData] = useState({ email: '', password: '', firstname: '', lastname: '', terms: false });
 
     // Handle Input Changes
     function handleSignInChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -25,16 +26,69 @@ export const AuthPortal: React.FC = () => {
     }
 
     // Handle Form Submissions
-    function handleSignInSubmit(e: React.FormEvent<HTMLFormElement>) {
+    async function handleSignInSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
         console.log('Signing In with:', signInData);
-        navigate('/workspace');
+
+        try {
+            const response = await fetch(`${API_BASE_URL}api/Auth/login`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json', // Tells backend you are sending JSON data
+                },
+                body: JSON.stringify({
+                    email: signInData.email,
+                    password: signInData.password
+                }),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                console.log('Sign in successful!', data);
+
+                // Optional: Save user token (JWT) if your backend returns one
+                // localStorage.setItem('token', data.token);
+
+                // Redirect user to workspace
+                navigate('/workspace');
+            } else {
+                // Handle backend errors (e.g., "Wrong password", "User not found")
+                alert(data.message || 'Failed to sign in. Please try again.');
+            }
+        } catch (error) {
+            console.error('Network error during sign in:', error);
+            alert('Could not connect to the server. Is your backend running?');
+        }
     }
 
-    function handleSignUpSubmit(e: React.FormEvent<HTMLFormElement>) {
+    async function handleSignUpSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
         console.log('Signing Up with:', signUpData);
-        // Add your registration API logic here
+        try {
+            const response = await fetch(`${API_BASE_URL}api/Auth/register`, {
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email: signUpData.email,
+                    password: signUpData.password,
+                    firstName: signUpData.firstname,
+                    lastName: signUpData.lastname
+                }),
+            });
+            const data = await response.json();
+            if (response.ok) {
+                alert('Registration successful! Please sign in.');
+                setIsSignUp(false);
+            } else {
+                alert(data.message || 'Registration failed.');
+            }
+        } catch (error) {
+            console.error('Network error during sign up:', error);
+            alert('Could not connect to the server.');
+        }
     }
 
     return (
@@ -55,13 +109,13 @@ export const AuthPortal: React.FC = () => {
                         <div>
                             <label htmlFor="signin-user" className="block text-sm font-semibold text-slate-700 mb-2">User</label>
                             <input
-                                type="text"
+                                type="email"
                                 id="signin-user"
-                                name="username"
+                                name="email"
                                 required
-                                autoComplete="username"
-                                placeholder="Username or unique ID"
-                                value={signInData.username}
+                                autoComplete="email"
+                                placeholder="Email address"
+                                value={signInData.email}
                                 onChange={handleSignInChange}
                                 className="w-full px-4 py-3 rounded-xl border border-slate-300 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition duration-200 bg-slate-50/50" />
                         </div>
@@ -69,7 +123,7 @@ export const AuthPortal: React.FC = () => {
                         <div>
                             <div className="flex items-center justify-between mb-2">
                                 <label htmlFor="signin-password" className="block text-sm font-semibold text-slate-700">Password</label>
-                                <a href="#forgot" className="text-sm font-medium text-emerald-600 hover:text-emerald-500">Forgot?</a>
+                                {/*<a href="#forgot" className="text-sm font-medium text-emerald-600 hover:text-emerald-500">Forgot?</a>*/}
                             </div>
                             <input
                                 type="password"
@@ -128,13 +182,13 @@ export const AuthPortal: React.FC = () => {
                         <div>
                             <label htmlFor="signup-user" className="block text-sm font-semibold text-slate-700 mb-2">User</label>
                             <input
-                                type="text"
+                                type="email"
                                 id="signup-user"
-                                name="username"
+                                name="email"
                                 required
-                                autoComplete="username"
-                                placeholder="Choose a username"
-                                value={signUpData.username}
+                                autoComplete="email"
+                                placeholder="Email Address"
+                                value={signUpData.email}
                                 onChange={handleSignUpChange}
                                 className="w-full px-4 py-3 rounded-xl border border-slate-300 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition duration-200 bg-slate-50/50" />
                         </div>
@@ -149,6 +203,32 @@ export const AuthPortal: React.FC = () => {
                                 autoComplete="new-password"
                                 placeholder="Create a strong password"
                                 value={signUpData.password}
+                                onChange={handleSignUpChange}
+                                className="w-full px-4 py-3 rounded-xl border border-slate-300 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition duration-200 bg-slate-50/50" />
+                        </div>
+                        <div>
+                            <label htmlFor="signup-firstname" className="block text-sm font-semibold text-slate-700 mb-2">Firstname</label>
+                            <input
+                                type="text"
+                                id="signup-firstname"
+                                name="firstname"
+                                required
+                                autoComplete="firstname"
+                                placeholder="Firstname"
+                                value={signUpData.firstname}
+                                onChange={handleSignUpChange}
+                                className="w-full px-4 py-3 rounded-xl border border-slate-300 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition duration-200 bg-slate-50/50" />
+                        </div>
+                        <div>
+                            <label htmlFor="signup-lastname" className="block text-sm font-semibold text-slate-700 mb-2">Lastname</label>
+                            <input
+                                type="text"
+                                id="signup-lastname"
+                                name="lastname"
+                                required
+                                autoComplete="lastname"
+                                placeholder="Lastname"
+                                value={signUpData.lastname}
                                 onChange={handleSignUpChange}
                                 className="w-full px-4 py-3 rounded-xl border border-slate-300 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition duration-200 bg-slate-50/50" />
                         </div>
