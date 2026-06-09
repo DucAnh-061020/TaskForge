@@ -5,8 +5,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TaskForge.Domain\Domain.csproj" />
-    <ProjectReference Include="..\TaskForge.Application\Application.csproj" />
     <ProjectReference Include="..\TaskForge.Infrastructure.Data\Infrastructure.Data.csproj" />
   </ItemGroup>
 

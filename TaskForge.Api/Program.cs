@@ -1,6 +1,9 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
+using MongoDB.Bson.Serialization.Serializers;
 using System.Text;
 using TaskForge.Application.Interfaces;
 using TaskForge.Infrastructure.Data.Context;
@@ -59,7 +62,7 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddAuthorization();
-
+BsonSerializer.RegisterSerializer(new GuidSerializer(BsonType.String));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

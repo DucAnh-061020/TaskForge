@@ -1,6 +1,6 @@
 using MediatR;
-using TaskForge.Application.Features.Projects.Projectors;
 using TaskForge.Application.Interfaces;
+using TaskForge.Domain.ReadModels;
 
 namespace TaskForge.Application.Features.Projects.Queries;
 

@@ -60,7 +60,7 @@ public class UserAggregate : AggregateRoot
     public bool ValidatePassword(string rawPassword, IPasswordHasher passwordHasher)
     {
         if (!IsActive) return false;
-        return passwordHasher.VerifyPassword(rawPassword, this.PasswordHash);
+        return passwordHasher.VerifyPassword(rawPassword, PasswordHash);
     }
 
     // =========================================================================

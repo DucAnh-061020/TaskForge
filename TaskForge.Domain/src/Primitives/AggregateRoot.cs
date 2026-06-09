@@ -42,7 +42,7 @@ public abstract class AggregateRoot
     private void ApplyEvent(IDomainEvent @event)
     {
         // Strongly-typed reflection routing. Looks for private void When(TEvent e) inside your concrete classes.
-        var method = this.GetType().GetMethod("When",
+        var method = GetType().GetMethod("When",
             System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic,
             new[] { @event.GetType() });
 

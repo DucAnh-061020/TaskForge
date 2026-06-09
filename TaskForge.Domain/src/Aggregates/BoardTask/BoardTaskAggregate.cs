@@ -15,7 +15,7 @@ public class BoardTaskAggregate : AggregateRoot
     private BoardTaskAggregate() { }
 
     // 1. Factory matching the official 5-argument constructor
-    public static BoardTaskAggregate Create(Guid taskId, string title, string description, Guid columnId, Guid assignedUserId)
+    public static BoardTaskAggregate Create(Guid taskId, string title, string description, Guid columnId, Guid assignedUserId, Guid creatorId, Guid boardId)
     {
         var task = new BoardTaskAggregate();
 
@@ -24,7 +24,9 @@ public class BoardTaskAggregate : AggregateRoot
             title.Trim(),
             description?.Trim() ?? string.Empty,
             columnId,
-            assignedUserId
+            assignedUserId,
+            creatorId,
+            boardId
         ));
 
         return task;
@@ -38,8 +40,7 @@ public class BoardTaskAggregate : AggregateRoot
 
         if (ColumnId == targetColumnId) return;
 
-        // Passes 3 arguments: TaskId, Current Column ID (Old), and Target Column ID (New)
-        RaiseEvent(new TaskMovedEvent(this.Id, this.ColumnId, targetColumnId));
+        RaiseEvent(new TaskMovedEvent(Id, targetColumnId));
     }
 
     public static BoardTaskAggregate Rehydrate(IEnumerable<DomainEvent> history)

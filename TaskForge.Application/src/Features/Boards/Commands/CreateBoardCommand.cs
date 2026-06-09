@@ -21,12 +21,6 @@ public class CreateBoardCommandHandler : IRequestHandler<CreateBoardCommand, Gui
 
         // 1. Create the new Board aggregate context
         var board = BoardAggregate.Create(boardId, request.Name, request.ProjectId);
-
-        // 2. Automatically inject standard Kanban starter columns via internal invariants
-        board.AddColumn("To Do");
-        board.AddColumn("In Progress");
-        board.AddColumn("Done");
-
         // 3. Persist all staged events atomically to PostgreSQL
         await _eventStore.AppendEventsAsync(board);
 

@@ -23,10 +23,10 @@ public class BoardController : ControllerBase
         return CreatedAtAction(nameof(GetBoard), new { id = boardId }, boardId);
     }
 
-    [HttpPost("{id}/columns")]
-    public async Task<IActionResult> AddColumn(Guid id, [FromBody] AddColumnCommand command)
+    [HttpPost("createcolumn")]
+    public async Task<IActionResult> AddColumn([FromBody] AddColumnCommand command)
     {
-        await _mediator.Send(new AddColumnCommand(id, command.ColumnName));
+        await _mediator.Send(new AddColumnCommand(command.BoardId, command.ColumnName));
         return NoContent();
     }
 

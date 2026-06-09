@@ -1,4 +1,5 @@
 ﻿using System.Linq.Expressions;
+using TaskForge.Domain.Services;
 
 namespace TaskForge.Application.Interfaces;
 public interface IReadRepository<TModel> where TModel : class

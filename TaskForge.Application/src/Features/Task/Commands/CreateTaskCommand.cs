@@ -1,7 +1,4 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-using MediatR;
+﻿using MediatR;
 using TaskForge.Application.Interfaces;
 using TaskForge.Domain.Aggregates.BoardTask;
 
@@ -11,7 +8,9 @@ public record CreateTaskCommand(
     string Title,
     string Description,
     Guid ColumnId,
-    Guid AssignedUserId) : IRequest<Guid>;
+    Guid AssignedUserId,
+    Guid CreaterUserId,
+    Guid BoardId) : IRequest<Guid>;
 
 public class CreateTaskCommandHandler : IRequestHandler<CreateTaskCommand, Guid>
 {
@@ -32,7 +31,9 @@ public class CreateTaskCommandHandler : IRequestHandler<CreateTaskCommand, Guid>
             request.Title,
             request.Description,
             request.ColumnId,
-            request.AssignedUserId
+            request.AssignedUserId,
+            request.CreaterUserId,
+            request.BoardId
         );
 
         // Commit transaction trail to the Database

@@ -35,11 +35,11 @@ public class EventStoreRepository : IEventStoreRepository
         foreach (var @event in pendingEvents)
         {
             var jsonOptions = new JsonSerializerOptions { WriteIndented = false };
-
+            int eventVersion = @event.Version == 0 ? initialExpectedVersion++ : @event.Version;
             var storedEvent = new EventEntity
             {
                 StreamId = @event.AggregateId,
-                Version = @event.Version,
+                Version = eventVersion,
                 EventType = @event.GetType().AssemblyQualifiedName ?? @event.GetType().Name,
                 Timestamp = @event.OccurredOn,
                 Data = JsonSerializer.Serialize(@event, @event.GetType(), jsonOptions),

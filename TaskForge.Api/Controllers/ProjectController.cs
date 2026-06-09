@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MediatR;
 using TaskForge.Application.Features.Projects.Queries;
+using TaskForge.Application.Features.Projects.Commands;
 
 namespace TaskForge.Api.Controllers;
 
@@ -13,6 +14,14 @@ public class ProjectController : ControllerBase
     public ProjectController(IMediator mediator)
     {
         _mediator = mediator;
+    }
+
+    [HttpPost("createproject")]
+    public async Task<IActionResult> CreateProject([FromBody] CreateProjectCommand command)
+    {
+        var projectId = await _mediator.Send(command);
+
+        return Ok(new { id = projectId });
     }
 
     [HttpGet("{id}")]

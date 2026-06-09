@@ -51,7 +51,7 @@ public class BoardAggregate : AggregateRoot
         var columnId = Guid.NewGuid();
         int nextOrder = _columns.Count; // Appends sequentially to the right side of the layout
 
-        RaiseEvent(new ColumnAddedEvent(this.Id, columnId, columnName.Trim(), nextOrder));
+        RaiseEvent(new ColumnAddedEvent(Id, columnId, columnName.Trim(), nextOrder));
     }
 
     public static BoardAggregate Rehydrate(IEnumerable<DomainEvent> history)
